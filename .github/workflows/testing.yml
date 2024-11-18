@@ -13,10 +13,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
-      - name: Echo my name
-        env:
-          MY_NAME: ${{ github.event.head_commit.author.username }}
-        run: echo "My name is $MY_NAME"
       - name: github context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
