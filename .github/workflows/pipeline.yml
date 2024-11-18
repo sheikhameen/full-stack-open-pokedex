@@ -40,12 +40,13 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
       - run: echo "$CONDITION"
   tag_release:
-    if: ${{ github.env.CONDITION == 'true' }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
+        if: ${{ env.CONDITION == 'true' }}
       - name: Bump version and push tag
+        if: ${{ env.CONDITION == 'true' }}
         uses: anothrNick/github-tag-action@1.71.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
