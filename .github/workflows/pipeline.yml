@@ -50,7 +50,7 @@ jobs:
 
       - name: Test Failure
         uses: stegzilla/discord-notify@v4
-        if: ${{ failure() && env.CONDITION == 'true' }}
+        if: ${{ failure() }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: Build failed
