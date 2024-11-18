@@ -14,6 +14,8 @@ env:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
+    env:
+      PUSHER: ${{ github.event.pusher.username }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -38,6 +40,22 @@ jobs:
         with:
           service-id: ${{ secrets.POKEDEX_RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: success()
+        with:
+          text: A new version of Pokedex deployed
+          severity: info
+          description: to https://full-stack-open-pokedex-au14.onrender.com/ by "$PUSHER".
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: failure()
+        with:
+          text: Build failed
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
