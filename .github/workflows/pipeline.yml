@@ -38,19 +38,23 @@ jobs:
         with:
           service-id: ${{ secrets.POKEDEX_RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
-      - name: Test Success
+      - name: Test Info
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: ${{ success() }}
         with:
-          text: A new version of Pokedex deployed
           severity: info
+          details: Test succeeded.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test Failure
+      - name: Test Warn
         uses: rjstone/discord-webhook-notify@v1.0.4
-        if: ${{ failure() }}
         with:
-          text: Build failed
+          severity: warn
+          details: Test warning.
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Error
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
           severity: error
+          details: Test error.
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
 
   tag_release:
