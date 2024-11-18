@@ -38,6 +38,7 @@ jobs:
         with:
           service-id: ${{ secrets.POKEDEX_RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+      - run: echo "$CONDITION"
   tag_release:
     if: ${{ github.env.CONDITION == 'true' }}
     needs: [simple_deployment_pipeline]
