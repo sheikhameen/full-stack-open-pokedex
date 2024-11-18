@@ -36,12 +36,12 @@ jobs:
           service-id: ${{ secrets.POKEDEX_RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
   tag_release:
+    if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message), '#skip') }}
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && ! contains(join(github.event.commits.*.message), '#skip') }}
         uses: anothrNick/github-tag-action@1.71.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
