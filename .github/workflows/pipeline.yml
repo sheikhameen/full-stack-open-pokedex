@@ -40,20 +40,22 @@ jobs:
           api-key: ${{ secrets.RENDER_API_KEY }}
 
       - name: Test Success
-        uses: rjstone/discord-webhook-notify@v1
+        uses: stegzilla/discord-notify@v4
         if: ${{ success() }}
         with:
-          text: A new version of Pokedex deployed
-          severity: info
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: A new version of Pokedex deployed
+          message: "to https://full-stack-open-pokedex-au14.onrender.com/ by ${{ github.event.pusher.username}}"
+          colour: "#00ff00"
 
       - name: Test Failure
-        uses: rjstone/discord-webhook-notify@v1
+        uses: stegzilla/discord-notify@v4
         if: ${{ failure() }}
         with:
-          text: Build failed
-          severity: error
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: Build failed
+          message: "commit ${{ github.event.head_commit.url }} by ${{ github.event.pusher.username}} broke the build :("
+          colour: "#ff0000"
 
   tag_release:
     needs: [simple_deployment_pipeline]
