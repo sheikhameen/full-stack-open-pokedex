@@ -11,9 +11,8 @@ app.get("/version", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.send("ok")
-  console.log("hello world")
-})
+  res.send("ok");
+});
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
