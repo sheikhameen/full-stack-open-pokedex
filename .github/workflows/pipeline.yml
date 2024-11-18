@@ -41,7 +41,7 @@ jobs:
 
       - name: Test Success
         uses: stegzilla/discord-notify@v4
-        if: ${{ success() }}
+        if: ${{ success() && env.CONDITION == 'true' }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: A new version of Pokedex deployed
@@ -50,7 +50,7 @@ jobs:
 
       - name: Test Failure
         uses: stegzilla/discord-notify@v4
-        if: ${{ failure() }}
+        if: ${{ failure() && env.CONDITION == 'true' }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: Build failed
