@@ -45,16 +45,16 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: A new version of Pokedex deployed
-          message: "to https://full-stack-open-pokedex-au14.onrender.com/ by ${{ github.event.pusher.username}}"
+          message: "to https://full-stack-open-pokedex-au14.onrender.com/ by ${{ github.event.pusher.name }}"
           colour: "#00ff00"
 
       - name: Test Failure
         uses: stegzilla/discord-notify@v4
-        if: ${{ failure() && env.CONDITION == 'true' }}
+        if: ${{ failure() && env.CONDITION == 'true'  }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: Build failed
-          message: "commit ${{ github.event.head_commit.url }} by ${{ github.event.pusher.username}} broke the build :("
+          message: "commit ${{ github.event.head_commit.url }} by ${{ github.event.pusher.name }} broke the build :("
           colour: "#ff0000"
 
   tag_release:
