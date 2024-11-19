@@ -2,7 +2,7 @@ name: URL Health Check
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/10 * * * *"
 
 jobs:
   url_health_check:
