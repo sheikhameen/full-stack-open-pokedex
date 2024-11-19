@@ -18,3 +18,19 @@ jobs:
           url: https://full-stack-open-pokedex-au14.onrender.com
           max-attempts: 3
           retry-delay: 5s
+      - name: Health Check Success
+        uses: stegzilla/discord-notify@v4
+        if: ${{ success() }}
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: Health check succeeded :)
+          message: "URL: https://full-stack-open-pokedex-au14.onrender.com/"
+          colour: "#00ff00"
+      - name: Health Check Failure
+        uses: stegzilla/discord-notify@v4
+        if: ${{ failure()  }}
+        with:
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: Health Check Failed :(
+          message: "URL: https://full-stack-open-pokedex-au14.onrender.com/"
+          colour: "#ff0000"
